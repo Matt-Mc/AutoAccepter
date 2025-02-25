@@ -1,18 +1,24 @@
 import pyautogui 
 import time
+import os
 
 def main():
+    imgFolder = 'img'
+    imgFiles = [f for f in os.listdir(imgFolder) if f.endswith('.png')]
+   
     while True:
         try:
-            print("Searching for the Accept Button")
-            acceptButton = pyautogui.locateCenterOnScreen('img/LeagueAccept.png', grayscale=True, confidence=0.4)
-            print(acceptButton)
+            for image in imgFiles:
+                print(f"Searching for the Accept Button in {image}")
+                acceptButton = pyautogui.locateCenterOnScreen(os.path.join(imgFolder, image), grayscale=True, confidence=0.4)
+                print(acceptButton)
         except Exception as e:
             acceptButton = None
         if acceptButton:
             print("Accept Button found")
             pyautogui.click(acceptButton)
             break
+        
         time.sleep(1)
 
 
